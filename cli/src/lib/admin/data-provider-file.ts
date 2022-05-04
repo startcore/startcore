@@ -58,7 +58,7 @@ export const dataProvider = {
 
   update: (resource: any, params: { id: any; data: any; }) =>
     httpClient(\`\${apiUrl}/\${resource}/\${params.id}\`, {
-      method: "PUT",
+      method: "PATCH",
       body: JSON.stringify(params.data),
     }).then(({ json }) => ({ data: json })),
 
@@ -67,7 +67,7 @@ export const dataProvider = {
       filter: JSON.stringify({ id: params.ids }),
     };
     const { json } = await httpClient(\`\${apiUrl}/\${resource}?\${stringify(query)}\`, {
-      method: "PUT",
+      method: "PATCH",
       body: JSON.stringify(params.data),
     });
     return ({ data: json });

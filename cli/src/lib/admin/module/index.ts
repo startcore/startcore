@@ -23,7 +23,15 @@ export const addModule = (cwdProject: string, model: any): void => {
 
   const imports = [
     {
-      items: ['Datagrid', 'List', 'TextField'],
+      items: [
+        'Create',
+        'Datagrid',
+        'Edit',
+        'List',
+        'SimpleForm',
+        'TextField',
+        'TextInput',
+      ],
       from: 'react-admin',
     },
   ]
@@ -35,7 +43,7 @@ export const addModule = (cwdProject: string, model: any): void => {
     })
   }
 
-  const app = factory.createVariableStatement(
+  const list = factory.createVariableStatement(
     [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     factory.createVariableDeclarationList(
       [
@@ -97,6 +105,137 @@ export const addModule = (cwdProject: string, model: any): void => {
     ),
   )
 
-  sourceFile.addStatements([printNode(app)])
+  const creaet = factory.createVariableStatement(
+    [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+    factory.createVariableDeclarationList(
+      [
+        factory.createVariableDeclaration(
+          factory.createIdentifier(`${model.modelName}Create`),
+          undefined,
+          undefined,
+          factory.createArrowFunction(
+            undefined,
+            undefined,
+            [
+              factory.createParameterDeclaration(
+                undefined,
+                undefined,
+                undefined,
+                factory.createIdentifier('props'),
+                undefined,
+                factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+              ),
+            ],
+            undefined,
+            factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
+            factory.createParenthesizedExpression(
+              factory.createJsxElement(
+                factory.createJsxOpeningElement(
+                  factory.createIdentifier('Create'),
+                  undefined,
+                  factory.createJsxAttributes([
+                    factory.createJsxSpreadAttribute(
+                      factory.createIdentifier('props'),
+                    ),
+                  ]),
+                ),
+                [
+                  factory.createJsxElement(
+                    factory.createJsxOpeningElement(
+                      factory.createIdentifier('SimpleForm'),
+                      undefined,
+                      factory.createJsxAttributes([]),
+                    ),
+                    model.fields.filter((field: any) => field.isCreate).map((field: any) =>
+                      factory.createJsxSelfClosingElement(
+                        factory.createIdentifier('TextInput'),
+                        undefined,
+                        factory.createJsxAttributes([
+                          factory.createJsxAttribute(
+                            factory.createIdentifier('source'),
+                            factory.createStringLiteral(field.name),
+                          ),
+                        ]),
+                      ),
+                    ),
+                    factory.createJsxClosingElement(
+                      factory.createIdentifier('SimpleForm'),
+                    ),
+                  ),
+                ],
+                factory.createJsxClosingElement(
+                  factory.createIdentifier('Create'),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+      ts.NodeFlags.Const,
+    ),
+  )
+
+  const edit = factory.createVariableStatement(
+    [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+    factory.createVariableDeclarationList(
+      [
+        factory.createVariableDeclaration(
+          factory.createIdentifier(`${model.modelName}Edit`),
+          undefined,
+          undefined,
+          factory.createArrowFunction(
+            undefined,
+            undefined,
+            [],
+            undefined,
+            factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
+            factory.createParenthesizedExpression(
+              factory.createJsxElement(
+                factory.createJsxOpeningElement(
+                  factory.createIdentifier('Edit'),
+                  undefined,
+                  factory.createJsxAttributes([]),
+                ),
+                [
+                  factory.createJsxElement(
+                    factory.createJsxOpeningElement(
+                      factory.createIdentifier('SimpleForm'),
+                      undefined,
+                      factory.createJsxAttributes([]),
+                    ),
+                    model.fields.filter((field: any) => field.isUpdate).map((field: any) =>
+                      factory.createJsxSelfClosingElement(
+                        factory.createIdentifier('TextInput'),
+                        undefined,
+                        factory.createJsxAttributes([
+                          factory.createJsxAttribute(
+                            factory.createIdentifier('source'),
+                            factory.createStringLiteral(field.name),
+                          ),
+                        ]),
+                      ),
+                    ),
+                    factory.createJsxClosingElement(
+                      factory.createIdentifier('SimpleForm'),
+                    ),
+                  ),
+                ],
+                factory.createJsxClosingElement(
+                  factory.createIdentifier('Edit'),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+      ts.NodeFlags.Const,
+    ),
+  )
+
+  sourceFile.addStatements([
+    printNode(list),
+    printNode(edit),
+    printNode(creaet),
+  ])
   project.save()
 }

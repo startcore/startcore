@@ -21,7 +21,7 @@ export const addApp = (cwdProject: string, models: any[]): void => {
       from: './dataProvider',
     },
     ...models.map(model => ({
-      items: [`${model.modelName}List`],
+      items: [`${model.modelName}List`, `${model.modelName}Edit`, `${model.modelName}Create`],
       from: `./${model.modelName.toLowerCase()}`,
     })),
   ]
@@ -80,6 +80,24 @@ export const addApp = (cwdProject: string, models: any[]): void => {
                           undefined,
                           factory.createIdentifier(
                             `${model.modelName}List`,
+                          ),
+                        ),
+                      ),
+                      factory.createJsxAttribute(
+                        factory.createIdentifier('edit'),
+                        factory.createJsxExpression(
+                          undefined,
+                          factory.createIdentifier(
+                            `${model.modelName}Edit`,
+                          ),
+                        ),
+                      ),
+                      factory.createJsxAttribute(
+                        factory.createIdentifier('create'),
+                        factory.createJsxExpression(
+                          undefined,
+                          factory.createIdentifier(
+                            `${model.modelName}Create`,
                           ),
                         ),
                       ),
