@@ -1,9 +1,10 @@
 import {Project, ts, printNode} from 'ts-morph'
 import {join} from 'node:path'
 import {writeFileSync} from 'node:fs'
-import {getTsType, modelType} from './utils'
+import {getTsType} from './utils'
+import {config} from '../../../utils'
 
-export const addCreateDto = (cwdProject: string, model: modelType): void => {
+export const addCreateDto = (cwdProject: string, model: config['models'][number]): void => {
   const modulePath = join(
     cwdProject,
     `backend/src/${model.modelName.toLowerCase()}/dto/create-${model.modelName.toLowerCase()}.dto.ts`,

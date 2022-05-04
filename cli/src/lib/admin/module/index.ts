@@ -1,8 +1,9 @@
 import {Project, ts, printNode} from 'ts-morph'
 import {join} from 'node:path'
 import {existsSync, mkdirSync, rmSync, writeFileSync} from 'node:fs'
+import {config} from '../../utils'
 
-export const addModule = (cwdProject: string, model: any): void => {
+export const addModule = (cwdProject: string, model: config['models'][number]): void => {
   const moduleFolder = join(
     cwdProject,
     `admin/src/${model.modelName.toLowerCase()}`,
@@ -76,7 +77,7 @@ export const addModule = (cwdProject: string, model: any): void => {
                         ),
                       ]),
                     ),
-                    model.fields.map((field: any) =>
+                    model.fields.map(field =>
                       factory.createJsxSelfClosingElement(
                         factory.createIdentifier('TextField'),
                         undefined,
@@ -146,7 +147,7 @@ export const addModule = (cwdProject: string, model: any): void => {
                       undefined,
                       factory.createJsxAttributes([]),
                     ),
-                    model.fields.filter((field: any) => field.isCreate).map((field: any) =>
+                    model.fields.filter(field => field.isCreate).map(field =>
                       factory.createJsxSelfClosingElement(
                         factory.createIdentifier('TextInput'),
                         undefined,
@@ -203,7 +204,7 @@ export const addModule = (cwdProject: string, model: any): void => {
                       undefined,
                       factory.createJsxAttributes([]),
                     ),
-                    model.fields.filter((field: any) => field.isUpdate).map((field: any) =>
+                    model.fields.filter(field => field.isUpdate).map(field =>
                       factory.createJsxSelfClosingElement(
                         factory.createIdentifier('TextInput'),
                         undefined,

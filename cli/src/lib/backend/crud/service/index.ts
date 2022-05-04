@@ -25,7 +25,7 @@ export const addService = (cwdProject: string, modelName: string): void => {
     })
   }
 
-  const createConstructorWithServices = (services: any[]) =>
+  const createConstructorWithServices = (services: { name: string, class: string }[]) =>
     factory.createConstructorDeclaration(
       undefined,
       undefined,

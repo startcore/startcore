@@ -1,8 +1,9 @@
 import {Project, ts, printNode} from 'ts-morph'
 import {join} from 'node:path'
 import {writeFileSync} from 'node:fs'
+import {config} from '../utils'
 
-export const addApp = (cwdProject: string, models: any[]): void => {
+export const addApp = (cwdProject: string, models: config['models']): void => {
   const modulePath = join(cwdProject, 'admin/src/App.tsx')
   writeFileSync(modulePath, '', 'utf8')
 

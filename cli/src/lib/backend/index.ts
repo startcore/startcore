@@ -9,5 +9,4 @@ export const createBackend = async (cwdProject: string, nameProject: string) => 
   await addSwagger(cwdProject, nameProject)
   await addPrisma(cwdProject)
   setSettings(cwdProject)
-  // await execCustom(path.join(cwdProject, 'backend'), 'yarn add @nestjs/graphql @nestjs/apollo graphql apollo-server-express')
 }

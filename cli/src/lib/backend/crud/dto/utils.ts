@@ -14,8 +14,8 @@ export const typeSlalar = {
   // Unsupported: 'Unsupported',
 } as const
 
-export const getTsType = (type: keyof typeof typeSlalar) => {
-  const prismaType2TsType = {
+export const getTsType = (type: string) => {
+  const prismaType2TsType: {[key: string]: any} = {
     String: factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
     Boolean: factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword),
     Int: factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),

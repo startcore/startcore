@@ -15,7 +15,7 @@ export const execCustom = async (cwdProject: string, cmd: string): Promise<void>
   }
 }
 
-export const settings = {
+export const config = {
   models: [
     {
       modelName: 'Person',
@@ -54,4 +54,26 @@ export const settings = {
       ],
     },
   ],
+}
+
+export type config = {
+  models: {
+    modelName: string,
+    fields: {
+      name: string,
+      type: string,
+      modifiers: {
+        isArray: boolean,
+        isOptional: boolean,
+      },
+      attributes: {
+        '@id': string,
+        '@default': {
+          value: string,
+        },
+      },
+      isCreate: boolean,
+      isUpdate: boolean,
+    }[]
+  }[]
 }

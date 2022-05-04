@@ -1,8 +1,9 @@
 import {Project, ts, printNode} from 'ts-morph'
 import {join} from 'node:path'
 import {writeFileSync} from 'node:fs'
+import {config} from '../utils'
 
-export const addAppModule = (cwdProject: string, settigns: any): void => {
+export const addAppModule = (cwdProject: string, config: config): void => {
   const modulePath = join(cwdProject, 'backend/src/app.module.ts')
 
   writeFileSync(modulePath, '', 'utf8')
@@ -17,7 +18,7 @@ export const addAppModule = (cwdProject: string, settigns: any): void => {
     {items: ['Module'], from: '@nestjs/common'},
     {items: ['AppController'], from: './app.controller'},
     {items: ['AppService'], from: './app.service'},
-    ...settigns.models.map((model: any) => ({
+    ...config.models.map(model => ({
       items: [`${model.modelName}Module`],
       from: `./${model.modelName.toLowerCase()}/${model.modelName.toLowerCase()}.module`,
     })),
@@ -44,7 +45,7 @@ export const addAppModule = (cwdProject: string, settigns: any): void => {
                   factory.createIdentifier('imports'),
                   factory.createArrayLiteralExpression(
                     [
-                      ...settigns.models.map((model: any) => factory.createIdentifier(`${model.modelName}Module`)),
+                      ...config.models.map(model => factory.createIdentifier(`${model.modelName}Module`)),
                     ],
                     false,
                   ),

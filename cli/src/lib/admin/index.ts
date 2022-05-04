@@ -1,6 +1,6 @@
 import {writeFileSync} from 'node:fs'
 import {join} from 'node:path'
-import {execCustom} from '../utils'
+import {config, execCustom} from '../utils'
 import {addApp} from './add-app'
 import {dataProvider} from './data-provider-file'
 import {addModule} from './module'
@@ -16,9 +16,9 @@ export const createAdmin = async (cwdProject: string): Promise<void> => {
   addApp(cwdProject, [])
 }
 
-export const syncAdmin = async (cwdProject: string, settings: any): Promise<void> => {
-  addApp(cwdProject, settings.models)
-  for (const model of settings.models) {
+export const syncAdmin = async (cwdProject: string, config: config): Promise<void> => {
+  addApp(cwdProject, config.models)
+  for (const model of config.models) {
     addModule(cwdProject, model)
   }
 }
