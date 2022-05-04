@@ -16,13 +16,9 @@ export const dataProvider = {
       filter: JSON.stringify(params.filter),
     };
     const url = \`\${apiUrl}/\${resource}?\${stringify(query)}\`;
-
-    const { headers, json } = await httpClient(url);
-    return ({
-      data: json,
-      // @ts-ignore
-      total: parseInt(headers.get("content-range").split("/").pop(), 10),
-    });
+    
+    const { json } = await httpClient(url);
+    return json;
   },
 
   getOne: (resource: any, params: { id: any; }) =>

@@ -2,6 +2,7 @@ import * as fs from 'node:fs'
 import {readFileSync, writeFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {syncAdmin} from './admin'
+import {addAppModule} from './backend/add-app-module'
 import {addCrud} from './backend/crud'
 import {syncPrismaSchema} from './backend/prisma'
 import {settings} from './utils'
@@ -30,5 +31,6 @@ export const sync = (): void => {
     addCrud(process.cwd(), model)
   }
 
+  addAppModule(process.cwd(), settings)
   syncAdmin(process.cwd(), settings)
 }

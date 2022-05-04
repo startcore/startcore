@@ -52,15 +52,17 @@ export const addService = (cwdProject: string, modelName: string): void => {
     parameters,
     returnType,
     block,
+    isAsync,
   }: {
     name: string,
     parameters: ts.ParameterDeclaration[],
     returnType: ts.TypeReferenceNode,
     block:ts.Block,
+    isAsync?: boolean,
   }) =>
     factory.createMethodDeclaration(
       undefined,
-      undefined,
+      isAsync ? [factory.createModifier(ts.SyntaxKind.AsyncKeyword)] : undefined,
       undefined,
       factory.createIdentifier(name),
       undefined,
@@ -129,6 +131,7 @@ export const addService = (cwdProject: string, modelName: string): void => {
       }),
       createServiceMethod({
         name: 'findAll',
+        isAsync: true,
         parameters: [factory.createParameterDeclaration(
           undefined,
           undefined,
@@ -152,9 +155,22 @@ export const addService = (cwdProject: string, modelName: string): void => {
         )],
         returnType: factory.createTypeReferenceNode(
           factory.createIdentifier('Promise'),
-          [factory.createArrayTypeNode(factory.createTypeReferenceNode(
-            factory.createIdentifier(modelName),
-          ))],
+          [factory.createTypeLiteralNode([
+            factory.createPropertySignature(
+              undefined,
+              factory.createIdentifier('total'),
+              undefined,
+              factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
+            ),
+            factory.createPropertySignature(
+              undefined,
+              factory.createIdentifier('data'),
+              undefined,
+              factory.createArrayTypeNode(factory.createTypeReferenceNode(
+                factory.createIdentifier(modelName),
+              )),
+            ),
+          ])],
         ),
         block: factory.createBlock(
           [
@@ -178,32 +194,94 @@ export const addService = (cwdProject: string, modelName: string): void => {
                   undefined,
                   factory.createIdentifier('params'),
                 )],
-                ts.NodeFlags.Const,
+                ts.NodeFlags.Const | ts.NodeFlags.AwaitContext | ts.NodeFlags.ContextFlags | ts.NodeFlags.TypeExcludesFlags,
               ),
             ),
-            factory.createReturnStatement(factory.createCallExpression(
-              factory.createPropertyAccessExpression(
-                factory.createPropertyAccessExpression(
-                  factory.createPropertyAccessExpression(
-                    factory.createThis(),
-                    factory.createIdentifier('prisma'),
-                  ),
-                  factory.createIdentifier(modelName.toLowerCase()),
-                ),
-                factory.createIdentifier('findMany'),
-              ),
+            factory.createVariableStatement(
               undefined,
-              [factory.createObjectLiteralExpression(
-                [
-                  factory.createShorthandPropertyAssignment(
-                    factory.createIdentifier('skip'),
-                  ),
-                  factory.createShorthandPropertyAssignment(
-                    factory.createIdentifier('take'),
-                  ),
-                ],
-                true,
-              )],
+              factory.createVariableDeclarationList(
+                [factory.createVariableDeclaration(
+                  factory.createArrayBindingPattern([
+                    factory.createBindingElement(
+                      undefined,
+                      undefined,
+                      factory.createIdentifier('total'),
+                    ),
+                    factory.createBindingElement(
+                      undefined,
+                      undefined,
+                      factory.createIdentifier('data'),
+                    ),
+                  ]),
+                  undefined,
+                  undefined,
+                  factory.createAwaitExpression(factory.createCallExpression(
+                    factory.createPropertyAccessExpression(
+                      factory.createPropertyAccessExpression(
+                        factory.createThis(),
+                        factory.createIdentifier('prisma'),
+                      ),
+                      factory.createIdentifier('$transaction'),
+                    ),
+                    undefined,
+                    [factory.createArrayLiteralExpression(
+                      [
+                        factory.createCallExpression(
+                          factory.createPropertyAccessExpression(
+                            factory.createPropertyAccessExpression(
+                              factory.createPropertyAccessExpression(
+                                factory.createThis(),
+                                factory.createIdentifier('prisma'),
+                              ),
+                              factory.createIdentifier(modelName.toLowerCase()),
+                            ),
+                            factory.createIdentifier('count'),
+                          ),
+                          undefined,
+                          [],
+                        ),
+                        factory.createCallExpression(
+                          factory.createPropertyAccessExpression(
+                            factory.createPropertyAccessExpression(
+                              factory.createPropertyAccessExpression(
+                                factory.createThis(),
+                                factory.createIdentifier('prisma'),
+                              ),
+                              factory.createIdentifier(modelName.toLowerCase()),
+                            ),
+                            factory.createIdentifier('findMany'),
+                          ),
+                          undefined,
+                          [factory.createObjectLiteralExpression(
+                            [
+                              factory.createShorthandPropertyAssignment(
+                                factory.createIdentifier('skip'),
+                              ),
+                              factory.createShorthandPropertyAssignment(
+                                factory.createIdentifier('take'),
+                              ),
+                            ],
+                            true,
+                          )],
+                        ),
+                      ],
+                      true,
+                    )],
+                  )),
+                )],
+                ts.NodeFlags.Const | ts.NodeFlags.AwaitContext | ts.NodeFlags.ContextFlags | ts.NodeFlags.TypeExcludesFlags,
+              ),
+            ),
+            factory.createReturnStatement(factory.createObjectLiteralExpression(
+              [
+                factory.createShorthandPropertyAssignment(
+                  factory.createIdentifier('total'),
+                ),
+                factory.createShorthandPropertyAssignment(
+                  factory.createIdentifier('data'),
+                ),
+              ],
+              true,
             )),
           ],
           true,
