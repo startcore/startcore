@@ -21,9 +21,9 @@ export const addApp = (cwdProject: string, models: config['models']): void => {
       items: ['dataProvider'],
       from: './dataProvider',
     },
-    ...models.map(model => ({
-      items: [`${model.modelName}List`, `${model.modelName}Edit`, `${model.modelName}Create`],
-      from: `./${model.modelName.toLowerCase()}`,
+    ...Object.values(models).map(model => ({
+      items: [`${model.name}List`, `${model.name}Edit`, `${model.name}Create`],
+      from: `./${model.name.toLowerCase()}`,
     })),
   ]
   for (const importItem of imports) {
@@ -64,7 +64,7 @@ export const addApp = (cwdProject: string, models: config['models']): void => {
                   ]),
                 ),
 
-                models.map(model =>
+                Object.values(models).map(model =>
                   factory.createJsxSelfClosingElement(
                     factory.createIdentifier('Resource'),
                     undefined,
@@ -72,7 +72,7 @@ export const addApp = (cwdProject: string, models: config['models']): void => {
                       factory.createJsxAttribute(
                         factory.createIdentifier('name'),
                         factory.createStringLiteral(
-                          model.modelName.toLowerCase(),
+                          model.name.toLowerCase(),
                         ),
                       ),
                       factory.createJsxAttribute(
@@ -80,7 +80,7 @@ export const addApp = (cwdProject: string, models: config['models']): void => {
                         factory.createJsxExpression(
                           undefined,
                           factory.createIdentifier(
-                            `${model.modelName}List`,
+                            `${model.name}List`,
                           ),
                         ),
                       ),
@@ -89,7 +89,7 @@ export const addApp = (cwdProject: string, models: config['models']): void => {
                         factory.createJsxExpression(
                           undefined,
                           factory.createIdentifier(
-                            `${model.modelName}Edit`,
+                            `${model.name}Edit`,
                           ),
                         ),
                       ),
@@ -98,7 +98,7 @@ export const addApp = (cwdProject: string, models: config['models']): void => {
                         factory.createJsxExpression(
                           undefined,
                           factory.createIdentifier(
-                            `${model.modelName}Create`,
+                            `${model.name}Create`,
                           ),
                         ),
                       ),

@@ -4,10 +4,10 @@ import {writeFileSync} from 'node:fs'
 import {getTsType} from './utils'
 import {config} from '../../../utils'
 
-export const addCreateDto = (cwdProject: string, model: config['models'][number]): void => {
+export const addCreateDto = (cwdProject: string, model: config['models'][string]): void => {
   const modulePath = join(
     cwdProject,
-    `backend/src/${model.modelName.toLowerCase()}/dto/create-${model.modelName.toLowerCase()}.dto.ts`,
+    `backend/src/${model.name.toLowerCase()}/dto/create-${model.name.toLowerCase()}.dto.ts`,
   )
   writeFileSync(modulePath, '', 'utf8')
 
@@ -18,10 +18,10 @@ export const addCreateDto = (cwdProject: string, model: config['models'][number]
   const dtoCreate = factory.createClassDeclaration(
     undefined,
     [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-    factory.createIdentifier(`Create${model.modelName}Dto`),
+    factory.createIdentifier(`Create${model.name}Dto`),
     undefined,
     undefined,
-    model.fields.filter(field => field.isCreate).map(field => factory.createPropertyDeclaration(
+    Object.values(model.fields).filter(field => field.isCreate).map(field => factory.createPropertyDeclaration(
       undefined,
       undefined,
       factory.createIdentifier(field.name),

@@ -10,18 +10,19 @@ model ${modelName} {
 }
 `
 
-const getField = (field: config['models'][number]['fields'][number]) => {
+const getField = (field: config['models'][string]['fields'][string]) => {
   const name = field.name
   const type = `${field.type}${field.modifiers.isArray ? '[]' : ''}${field.modifiers.isOptional ? '?' : ''}`
   let attributes = ''
-  // eslint-disable-next-line guard-for-in
   for (const key in field.attributes) {
-    if (key === '@id') {
-      attributes += `${key} `
-    }
+    if (key in field.attributes) {
+      if (key === '@id') {
+        attributes += `${key} `
+      }
 
-    if (key === '@default') {
-      attributes += `${key}(${field.attributes[key].value}) `
+      if (key === '@default') {
+        attributes += `${key}(${field.attributes[key]?.value}) `
+      }
     }
   }
 
@@ -30,8 +31,8 @@ const getField = (field: config['models'][number]['fields'][number]) => {
 
 export const syncPrismaSchema = async (cwdProject: string, models: config['models']): Promise<void> => {
   let schema = initPrismaSchema
-  for (const model of models) {
-    schema += getModel(model.modelName, model.fields.map(element => getField(element)).join('\n  '))
+  for (const model of Object.values(models)) {
+    schema += getModel(model.name, Object.values(model.fields).map(element => getField(element)).join('\n  '))
   }
 
   writeFileSync(join(cwdProject, 'backend/prisma/schema.prisma'), schema, 'utf8')

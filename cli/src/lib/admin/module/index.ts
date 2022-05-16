@@ -6,7 +6,7 @@ import {config} from '../../utils'
 export const addModule = (cwdProject: string, model: config['models'][number]): void => {
   const moduleFolder = join(
     cwdProject,
-    `admin/src/${model.modelName.toLowerCase()}`,
+    `admin/src/${model.name.toLowerCase()}`,
   )
   if (existsSync(moduleFolder)) {
     rmSync(moduleFolder, {recursive: true, force: true})
@@ -49,7 +49,7 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
     factory.createVariableDeclarationList(
       [
         factory.createVariableDeclaration(
-          factory.createIdentifier(`${model.modelName}List`),
+          factory.createIdentifier(`${model.name}List`),
           undefined,
           undefined,
           factory.createArrowFunction(
@@ -77,7 +77,7 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
                         ),
                       ]),
                     ),
-                    model.fields.map(field =>
+                    Object.values(model.fields).map(field =>
                       factory.createJsxSelfClosingElement(
                         factory.createIdentifier('TextField'),
                         undefined,
@@ -111,7 +111,7 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
     factory.createVariableDeclarationList(
       [
         factory.createVariableDeclaration(
-          factory.createIdentifier(`${model.modelName}Create`),
+          factory.createIdentifier(`${model.name}Create`),
           undefined,
           undefined,
           factory.createArrowFunction(
@@ -147,7 +147,7 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
                       undefined,
                       factory.createJsxAttributes([]),
                     ),
-                    model.fields.filter(field => field.isCreate).map(field =>
+                    Object.values(model.fields).filter(field => field.isCreate).map(field =>
                       factory.createJsxSelfClosingElement(
                         factory.createIdentifier('TextInput'),
                         undefined,
@@ -181,7 +181,7 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
     factory.createVariableDeclarationList(
       [
         factory.createVariableDeclaration(
-          factory.createIdentifier(`${model.modelName}Edit`),
+          factory.createIdentifier(`${model.name}Edit`),
           undefined,
           undefined,
           factory.createArrowFunction(
@@ -204,7 +204,7 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
                       undefined,
                       factory.createJsxAttributes([]),
                     ),
-                    model.fields.filter(field => field.isUpdate).map(field =>
+                    Object.values(model.fields).filter(field => field.isUpdate).map(field =>
                       factory.createJsxSelfClosingElement(
                         factory.createIdentifier('TextInput'),
                         undefined,

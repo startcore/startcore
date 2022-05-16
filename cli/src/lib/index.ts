@@ -27,7 +27,7 @@ export const sync = (): void => {
   )
   const settings = JSON.parse(schema) as config
   syncPrismaSchema(process.cwd(), settings.models)
-  for (const model of settings.models) {
+  for (const model of Object.values(settings.models)) {
     addCrud(process.cwd(), model)
   }
 

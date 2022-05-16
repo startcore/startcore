@@ -29,25 +29,3 @@ export const getTsType = (type: string) => {
   return prismaType2TsType[type]
 }
 
-export type modelType = {
-  modelName: string;
-  fields: {
-    name: string;
-    type: keyof typeof typeSlalar;
-    modifiers: {
-      isArray: boolean;
-      isOptional: boolean;
-    };
-    attributes: {
-      '@default': {
-        value: string;
-      };
-    };
-    isCreate: boolean;
-    isUpdate: boolean;
-  }[];
-};
-
-export const functions = {
-  uuid: 'uuid',
-} as const

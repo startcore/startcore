@@ -36,12 +36,12 @@ export default class Init extends Command {
                 return createAdmin(cwdProject)
               },
             },
-            // {
-            //   title: 'init Front',
-            //   task: () => {
-            //     return createFront(cwdProject)
-            //   },
-            // },
+            {
+              title: 'init Front',
+              task: () => {
+                return createFront(cwdProject)
+              },
+            },
             {
               title: 'init Backend',
               task: () => {

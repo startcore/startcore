@@ -10,17 +10,15 @@ export const addAppModule = (cwdProject: string, config: config): void => {
   const project = new Project()
   const factory = ts.factory
 
-  const sourceFile = project.addSourceFileAtPath(
-    modulePath,
-  )
+  const sourceFile = project.addSourceFileAtPath(modulePath)
 
   const imports = [
     {items: ['Module'], from: '@nestjs/common'},
     {items: ['AppController'], from: './app.controller'},
     {items: ['AppService'], from: './app.service'},
-    ...config.models.map(model => ({
-      items: [`${model.modelName}Module`],
-      from: `./${model.modelName.toLowerCase()}/${model.modelName.toLowerCase()}.module`,
+    ...Object.values(config.models).map(model => ({
+      items: [`${model.name}Module`],
+      from: `./${model.name.toLowerCase()}/${model.name.toLowerCase()}.module`,
     })),
   ]
 
@@ -44,9 +42,9 @@ export const addAppModule = (cwdProject: string, config: config): void => {
                 factory.createPropertyAssignment(
                   factory.createIdentifier('imports'),
                   factory.createArrayLiteralExpression(
-                    [
-                      ...config.models.map(model => factory.createIdentifier(`${model.modelName}Module`)),
-                    ],
+                    Object.values(config.models).map(model =>
+                      factory.createIdentifier(`${model.name}Module`),
+                    ),
                     false,
                   ),
                 ),
