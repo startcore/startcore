@@ -16,79 +16,40 @@ oclif example Hello World CLI
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g @startcore/cli
-$ @startcore/cli COMMAND
+$ npm install -g @startcore/startcore
+$ @startcore/startcore COMMAND
 running command...
-$ @startcore/cli (--version)
-@startcore/cli/0.0.0 linux-x64 node-v16.14.2
-$ @startcore/cli --help [COMMAND]
+$ @startcore/startcore (--version)
+@startcore/startcore/0.0.8 linux-x64 node-v16.14.2
+$ @startcore/startcore --help [COMMAND]
 USAGE
-  $ @startcore/cli COMMAND
+  $ @startcore/startcore COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`@startcore/cli hello PERSON`](#startcorecli-hello-person)
-* [`@startcore/cli hello world`](#startcorecli-hello-world)
-* [`@startcore/cli help [COMMAND]`](#startcorecli-help-command)
-* [`@startcore/cli plugins`](#startcorecli-plugins)
-* [`@startcore/cli plugins:install PLUGIN...`](#startcorecli-pluginsinstall-plugin)
-* [`@startcore/cli plugins:inspect PLUGIN...`](#startcorecli-pluginsinspect-plugin)
-* [`@startcore/cli plugins:install PLUGIN...`](#startcorecli-pluginsinstall-plugin-1)
-* [`@startcore/cli plugins:link PLUGIN`](#startcorecli-pluginslink-plugin)
-* [`@startcore/cli plugins:uninstall PLUGIN...`](#startcorecli-pluginsuninstall-plugin)
-* [`@startcore/cli plugins:uninstall PLUGIN...`](#startcorecli-pluginsuninstall-plugin-1)
-* [`@startcore/cli plugins:uninstall PLUGIN...`](#startcorecli-pluginsuninstall-plugin-2)
-* [`@startcore/cli plugins update`](#startcorecli-plugins-update)
+* [`@startcore/startcore help [COMMAND]`](#startcorestartcore-help-command)
+* [`@startcore/startcore init`](#startcorestartcore-init)
+* [`@startcore/startcore plugins`](#startcorestartcore-plugins)
+* [`@startcore/startcore plugins:install PLUGIN...`](#startcorestartcore-pluginsinstall-plugin)
+* [`@startcore/startcore plugins:inspect PLUGIN...`](#startcorestartcore-pluginsinspect-plugin)
+* [`@startcore/startcore plugins:install PLUGIN...`](#startcorestartcore-pluginsinstall-plugin-1)
+* [`@startcore/startcore plugins:link PLUGIN`](#startcorestartcore-pluginslink-plugin)
+* [`@startcore/startcore plugins:uninstall PLUGIN...`](#startcorestartcore-pluginsuninstall-plugin)
+* [`@startcore/startcore plugins:uninstall PLUGIN...`](#startcorestartcore-pluginsuninstall-plugin-1)
+* [`@startcore/startcore plugins:uninstall PLUGIN...`](#startcorestartcore-pluginsuninstall-plugin-2)
+* [`@startcore/startcore plugins update`](#startcorestartcore-plugins-update)
+* [`@startcore/startcore sync`](#startcorestartcore-sync)
+* [`@startcore/startcore ui`](#startcorestartcore-ui)
 
-## `@startcore/cli hello PERSON`
+## `@startcore/startcore help [COMMAND]`
 
-Say hello
-
-```
-USAGE
-  $ @startcore/cli hello [PERSON] -f <value>
-
-ARGUMENTS
-  PERSON  Person to say hello to
-
-FLAGS
-  -f, --from=<value>  (required) Whom is saying hello
-
-DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ oex hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
-```
-
-_See code: [dist/commands/hello/index.ts](https://github.com/startcore/cli/blob/v0.0.0/dist/commands/hello/index.ts)_
-
-## `@startcore/cli hello world`
-
-Say hello world
+Display help for @startcore/startcore.
 
 ```
 USAGE
-  $ @startcore/cli hello world
-
-DESCRIPTION
-  Say hello world
-
-EXAMPLES
-  $ oex hello world
-  hello world! (./src/commands/hello/world.ts)
-```
-
-## `@startcore/cli help [COMMAND]`
-
-Display help for @startcore/cli.
-
-```
-USAGE
-  $ @startcore/cli help [COMMAND] [-n]
+  $ @startcore/startcore help [COMMAND] [-n]
 
 ARGUMENTS
   COMMAND  Command to show help for.
@@ -97,18 +58,35 @@ FLAGS
   -n, --nested-commands  Include all nested commands in the output.
 
 DESCRIPTION
-  Display help for @startcore/cli.
+  Display help for @startcore/startcore.
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.10/src/commands/help.ts)_
 
-## `@startcore/cli plugins`
+## `@startcore/startcore init`
+
+describe the command here
+
+```
+USAGE
+  $ @startcore/startcore init
+
+DESCRIPTION
+  describe the command here
+
+EXAMPLES
+  $ @startcore/startcore init
+```
+
+_See code: [dist/commands/init.ts](https://github.com/startcore/startcore/blob/v0.0.8/dist/commands/init.ts)_
+
+## `@startcore/startcore plugins`
 
 List installed plugins.
 
 ```
 USAGE
-  $ @startcore/cli plugins [--core]
+  $ @startcore/startcore plugins [--core]
 
 FLAGS
   --core  Show core plugins.
@@ -117,18 +95,18 @@ DESCRIPTION
   List installed plugins.
 
 EXAMPLES
-  $ @startcore/cli plugins
+  $ @startcore/startcore plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.1.0/src/commands/plugins/index.ts)_
 
-## `@startcore/cli plugins:install PLUGIN...`
+## `@startcore/startcore plugins:install PLUGIN...`
 
 Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ @startcore/cli plugins:install PLUGIN...
+  $ @startcore/startcore plugins:install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -150,23 +128,23 @@ DESCRIPTION
   the CLI without the need to patch and update the whole CLI.
 
 ALIASES
-  $ @startcore/cli plugins add
+  $ @startcore/startcore plugins add
 
 EXAMPLES
-  $ @startcore/cli plugins:install myplugin 
+  $ @startcore/startcore plugins:install myplugin 
 
-  $ @startcore/cli plugins:install https://github.com/someuser/someplugin
+  $ @startcore/startcore plugins:install https://github.com/someuser/someplugin
 
-  $ @startcore/cli plugins:install someuser/someplugin
+  $ @startcore/startcore plugins:install someuser/someplugin
 ```
 
-## `@startcore/cli plugins:inspect PLUGIN...`
+## `@startcore/startcore plugins:inspect PLUGIN...`
 
 Displays installation properties of a plugin.
 
 ```
 USAGE
-  $ @startcore/cli plugins:inspect PLUGIN...
+  $ @startcore/startcore plugins:inspect PLUGIN...
 
 ARGUMENTS
   PLUGIN  [default: .] Plugin to inspect.
@@ -179,16 +157,16 @@ DESCRIPTION
   Displays installation properties of a plugin.
 
 EXAMPLES
-  $ @startcore/cli plugins:inspect myplugin
+  $ @startcore/startcore plugins:inspect myplugin
 ```
 
-## `@startcore/cli plugins:install PLUGIN...`
+## `@startcore/startcore plugins:install PLUGIN...`
 
 Installs a plugin into the CLI.
 
 ```
 USAGE
-  $ @startcore/cli plugins:install PLUGIN...
+  $ @startcore/startcore plugins:install PLUGIN...
 
 ARGUMENTS
   PLUGIN  Plugin to install.
@@ -210,23 +188,23 @@ DESCRIPTION
   the CLI without the need to patch and update the whole CLI.
 
 ALIASES
-  $ @startcore/cli plugins add
+  $ @startcore/startcore plugins add
 
 EXAMPLES
-  $ @startcore/cli plugins:install myplugin 
+  $ @startcore/startcore plugins:install myplugin 
 
-  $ @startcore/cli plugins:install https://github.com/someuser/someplugin
+  $ @startcore/startcore plugins:install https://github.com/someuser/someplugin
 
-  $ @startcore/cli plugins:install someuser/someplugin
+  $ @startcore/startcore plugins:install someuser/someplugin
 ```
 
-## `@startcore/cli plugins:link PLUGIN`
+## `@startcore/startcore plugins:link PLUGIN`
 
 Links a plugin into the CLI for development.
 
 ```
 USAGE
-  $ @startcore/cli plugins:link PLUGIN
+  $ @startcore/startcore plugins:link PLUGIN
 
 ARGUMENTS
   PATH  [default: .] path to plugin
@@ -244,16 +222,16 @@ DESCRIPTION
   command will override the user-installed or core plugin implementation. This is useful for development work.
 
 EXAMPLES
-  $ @startcore/cli plugins:link myplugin
+  $ @startcore/startcore plugins:link myplugin
 ```
 
-## `@startcore/cli plugins:uninstall PLUGIN...`
+## `@startcore/startcore plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ @startcore/cli plugins:uninstall PLUGIN...
+  $ @startcore/startcore plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -266,17 +244,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ @startcore/cli plugins unlink
-  $ @startcore/cli plugins remove
+  $ @startcore/startcore plugins unlink
+  $ @startcore/startcore plugins remove
 ```
 
-## `@startcore/cli plugins:uninstall PLUGIN...`
+## `@startcore/startcore plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ @startcore/cli plugins:uninstall PLUGIN...
+  $ @startcore/startcore plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -289,17 +267,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ @startcore/cli plugins unlink
-  $ @startcore/cli plugins remove
+  $ @startcore/startcore plugins unlink
+  $ @startcore/startcore plugins remove
 ```
 
-## `@startcore/cli plugins:uninstall PLUGIN...`
+## `@startcore/startcore plugins:uninstall PLUGIN...`
 
 Removes a plugin from the CLI.
 
 ```
 USAGE
-  $ @startcore/cli plugins:uninstall PLUGIN...
+  $ @startcore/startcore plugins:uninstall PLUGIN...
 
 ARGUMENTS
   PLUGIN  plugin to uninstall
@@ -312,17 +290,17 @@ DESCRIPTION
   Removes a plugin from the CLI.
 
 ALIASES
-  $ @startcore/cli plugins unlink
-  $ @startcore/cli plugins remove
+  $ @startcore/startcore plugins unlink
+  $ @startcore/startcore plugins remove
 ```
 
-## `@startcore/cli plugins update`
+## `@startcore/startcore plugins update`
 
 Update installed plugins.
 
 ```
 USAGE
-  $ @startcore/cli plugins update [-h] [-v]
+  $ @startcore/startcore plugins update [-h] [-v]
 
 FLAGS
   -h, --help     Show CLI help.
@@ -331,4 +309,22 @@ FLAGS
 DESCRIPTION
   Update installed plugins.
 ```
+
+## `@startcore/startcore sync`
+
+```
+USAGE
+  $ @startcore/startcore sync
+```
+
+_See code: [dist/commands/sync.ts](https://github.com/startcore/startcore/blob/v0.0.8/dist/commands/sync.ts)_
+
+## `@startcore/startcore ui`
+
+```
+USAGE
+  $ @startcore/startcore ui
+```
+
+_See code: [dist/commands/ui.ts](https://github.com/startcore/startcore/blob/v0.0.8/dist/commands/ui.ts)_
 <!-- commandsstop -->

@@ -6,7 +6,7 @@ import {dataProvider} from './data-provider-file'
 import {addModule} from './module'
 
 const yarnCreateReactApp = async (cwdProject: string, name: string) => {
-  await execCustom(cwdProject, `yarn create react-app ${name} --template typescript`)
+  await execCustom(cwdProject, `npx create-react-app ${name} --template typescript`)
 }
 
 export const createAdmin = async (cwdProject: string): Promise<void> => {

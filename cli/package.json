@@ -1,15 +1,15 @@
 {
-  "name": "@startcore/cli",
-  "version": "0.0.1",
+  "name": "@startcore/startcore",
+  "version": "0.0.8",
   "description": "oclif example Hello World CLI",
   "author": "gespispace",
   "bin": {
-    "@startcore/cli": "./bin/run"
+    "startcore": "./bin/run"
   },
   "homepage": "https://github.com/startcore/startcore",
   "license": "Apache-2.0 License",
   "main": "dist/index.js",
-  "repository": "startcore/cli",
+  "repository": "git://github.com/startcore/startcore.git",
   "files": [
     "/bin",
     "/dist",
@@ -21,8 +21,15 @@
     "@oclif/plugin-help": "^5",
     "@oclif/plugin-plugins": "^2.1.0",
     "@prisma/generator-helper": "^3.13.0",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
     "execa": "^5.1.1",
+    "express": "4.16.4",
     "listr": "^0.14.3",
+    "memfs": "^3.4.7",
+    "send": "0.16.2",
+    "serve-static": "1.13.2",
+    "spyfs": "^1.0.2",
     "ts-morph": "^14.0.0"
   },
   "devDependencies": {
@@ -44,8 +51,8 @@
     "typescript": "^4.4.3"
   },
   "oclif": {
-    "bin": "@startcore/cli",
-    "dirname": "@startcore/cli",
+    "bin": "@startcore/startcore",
+    "dirname": "@startcore/startcore",
     "commands": "./dist/commands",
     "plugins": [
       "@oclif/plugin-help",

@@ -11,5 +11,5 @@ export const addPrisma = async (cwdProject: string): Promise<void> => {
   writeFileSync(join(cwdProject, 'backend/prisma/schema.prisma'), initPrismaSchema, 'utf8')
   writeFileSync(join(cwdProject, 'backend/.env'), prismaEnv, 'utf8')
   writeFileSync(join(cwdProject, 'backend/src/prisma.service.ts'), prismaService, 'utf8')
-  await execCustom(join(cwdProject, 'backend'), 'yarn prisma migrate dev --name init')
+  await execCustom(join(cwdProject, 'backend'), 'yarn prisma generate')
 }

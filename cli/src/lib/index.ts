@@ -15,7 +15,7 @@ const addSettingsFile = (path: string) => {
 }
 
 export const initFolder = (name: string): string => {
-  fs.mkdirSync(name)
+  fs.mkdirSync(join(process.cwd(), name))
   addSettingsFile(join(process.cwd(), name))
   return join(process.cwd(), name)
 }

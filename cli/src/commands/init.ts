@@ -5,7 +5,7 @@ import {
   createFront,
   createBackend,
 } from '../lib'
-import * as Listr from 'listr'
+import Listr from 'listr'
 
 export default class Init extends Command {
   static description = 'describe the command here'
