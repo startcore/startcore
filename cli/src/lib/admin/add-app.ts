@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {Project, ts, printNode} from 'ts-morph'
 import {join} from 'node:path'
 import {writeFileSync} from 'node:fs'
@@ -22,13 +23,21 @@ export const addApp = (cwdProject: string, models: config['models']): void => {
       from: './dataProvider',
     },
     ...Object.values(models).map(model => ({
-      items: [`${model.name}List`, `${model.name}Edit`, `${model.name}Create`],
+      items: [
+        `${model.name}List`,
+        Object.values(model.fields).some(field => field.isUpdate) ?
+          `${model.name}Edit` :
+          '',
+        Object.values(model.fields).some(field => field.isCreate) ?
+          `${model.name}Create` :
+          '',
+      ],
       from: `./${model.name.toLowerCase()}`,
     })),
   ]
   for (const importItem of imports) {
     sourceFile.addImportDeclaration({
-      namedImports: importItem.items,
+      namedImports: importItem.items.filter(item => item !== ''),
       moduleSpecifier: importItem.from,
       isTypeOnly: false,
     })
@@ -68,41 +77,44 @@ export const addApp = (cwdProject: string, models: config['models']): void => {
                   factory.createJsxSelfClosingElement(
                     factory.createIdentifier('Resource'),
                     undefined,
-                    factory.createJsxAttributes([
-                      factory.createJsxAttribute(
-                        factory.createIdentifier('name'),
-                        factory.createStringLiteral(
-                          model.name.toLowerCase(),
+                    factory.createJsxAttributes(
+                      // @ts-ignore
+                      [
+                        factory.createJsxAttribute(
+                          factory.createIdentifier('name'),
+                          factory.createStringLiteral(model.name.toLowerCase()),
                         ),
-                      ),
-                      factory.createJsxAttribute(
-                        factory.createIdentifier('list'),
-                        factory.createJsxExpression(
-                          undefined,
-                          factory.createIdentifier(
-                            `${model.name}List`,
+                        factory.createJsxAttribute(
+                          factory.createIdentifier('list'),
+                          factory.createJsxExpression(
+                            undefined,
+                            factory.createIdentifier(`${model.name}List`),
                           ),
                         ),
-                      ),
-                      factory.createJsxAttribute(
-                        factory.createIdentifier('edit'),
-                        factory.createJsxExpression(
-                          undefined,
-                          factory.createIdentifier(
-                            `${model.name}Edit`,
-                          ),
-                        ),
-                      ),
-                      factory.createJsxAttribute(
-                        factory.createIdentifier('create'),
-                        factory.createJsxExpression(
-                          undefined,
-                          factory.createIdentifier(
-                            `${model.name}Create`,
-                          ),
-                        ),
-                      ),
-                    ]),
+                        Object.values(model.fields).some(
+                          field => field.isUpdate,
+                        ) ?
+                          factory.createJsxAttribute(
+                            factory.createIdentifier('edit'),
+                            factory.createJsxExpression(
+                              undefined,
+                              factory.createIdentifier(`${model.name}Edit`),
+                            ),
+                          ) :
+                          null,
+                        Object.values(model.fields).some(
+                          field => field.isCreate,
+                        ) ?
+                          factory.createJsxAttribute(
+                            factory.createIdentifier('create'),
+                            factory.createJsxExpression(
+                              undefined,
+                              factory.createIdentifier(`${model.name}Create`),
+                            ),
+                          ) :
+                          null,
+                      ].filter(item => item !== null),
+                    ),
                   ),
                 ),
                 factory.createJsxClosingElement(

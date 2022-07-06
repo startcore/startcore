@@ -7,7 +7,7 @@ import {config} from '../../../utils'
 export const addUpdateDto = (cwdProject: string, model: config['models'][string]): void => {
   const modulePath = join(
     cwdProject,
-    `backend/src/${model.name.toLowerCase()}/dto/update-${model.name.toLowerCase()}.dto.ts`,
+    `dto/base.update-${model.name.toLowerCase()}.dto.ts`,
   )
   writeFileSync(modulePath, '', 'utf8')
 

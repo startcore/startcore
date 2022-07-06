@@ -36,5 +36,5 @@ export const syncPrismaSchema = async (cwdProject: string, models: config['model
   }
 
   writeFileSync(join(cwdProject, 'backend/prisma/schema.prisma'), schema, 'utf8')
-  await execCustom(join(cwdProject, 'backend'), 'yarn prisma migrate dev')
+  // await execCustom(join(cwdProject, 'backend'), 'yarn prisma migrate dev')
 }

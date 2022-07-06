@@ -1,6 +1,6 @@
 {
   "name": "@startcore/startcore",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "oclif example Hello World CLI",
   "author": "gespispace",
   "bin": {

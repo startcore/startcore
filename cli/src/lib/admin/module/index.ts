@@ -3,7 +3,10 @@ import {join} from 'node:path'
 import {existsSync, mkdirSync, rmSync, writeFileSync} from 'node:fs'
 import {config} from '../../utils'
 
-export const addModule = (cwdProject: string, model: config['models'][number]): void => {
+export const addModule = (
+  cwdProject: string,
+  model: config['models'][number],
+): void => {
   const moduleFolder = join(
     cwdProject,
     `admin/src/${model.name.toLowerCase()}`,
@@ -106,7 +109,7 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
     ),
   )
 
-  const creaet = factory.createVariableStatement(
+  const create = factory.createVariableStatement(
     [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     factory.createVariableDeclarationList(
       [
@@ -147,7 +150,9 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
                       undefined,
                       factory.createJsxAttributes([]),
                     ),
-                    Object.values(model.fields).filter(field => field.isCreate).map(field =>
+                    Object.values(model.fields)
+                    .filter(field => field.isCreate)
+                    .map(field =>
                       factory.createJsxSelfClosingElement(
                         factory.createIdentifier('TextInput'),
                         undefined,
@@ -204,7 +209,9 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
                       undefined,
                       factory.createJsxAttributes([]),
                     ),
-                    Object.values(model.fields).filter(field => field.isUpdate).map(field =>
+                    Object.values(model.fields)
+                    .filter(field => field.isUpdate)
+                    .map(field =>
                       factory.createJsxSelfClosingElement(
                         factory.createIdentifier('TextInput'),
                         undefined,
@@ -235,8 +242,12 @@ export const addModule = (cwdProject: string, model: config['models'][number]): 
 
   sourceFile.addStatements([
     printNode(list),
-    printNode(edit),
-    printNode(creaet),
+    Object.values(model.fields).some(field => field.isUpdate) ?
+      printNode(edit) :
+      '',
+    Object.values(model.fields).some(field => field.isCreate) ?
+      printNode(create) :
+      '',
   ])
   project.save()
 }

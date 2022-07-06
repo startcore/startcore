@@ -7,7 +7,7 @@ import {config} from '../../../utils'
 export const addCreateDto = (cwdProject: string, model: config['models'][string]): void => {
   const modulePath = join(
     cwdProject,
-    `backend/src/${model.name.toLowerCase()}/dto/create-${model.name.toLowerCase()}.dto.ts`,
+    `dto/base.create-${model.name.toLowerCase()}.dto.ts`,
   )
   writeFileSync(modulePath, '', 'utf8')
 

@@ -5,7 +5,7 @@ import {writeFileSync} from 'node:fs'
 export const addModule = (cwdProject: string, modelName: string): void => {
   const modulePath = join(
     cwdProject,
-    `backend/src/${modelName.toLowerCase()}/${modelName.toLowerCase()}.module.ts`,
+    `${modelName.toLowerCase()}.module.ts`,
   )
   writeFileSync(modulePath, '', 'utf8')
 
